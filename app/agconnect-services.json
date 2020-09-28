@@ -1,0 +1,30 @@
+{
+	"agcgw":{
+		"backurl":"connect-drru.dbankcloud.cn",
+		"url":"connect-drru.hispace.hicloud.com"
+	},
+	"client":{
+		"cp_id":"1340007000008084742",
+		"product_id":"736430079244602345",
+		"client_id":"429985628344550400",
+		"client_secret":"EEE280A6F0AE53D6829E707072FFBF1267750ECD711A8F23AE3CBD61499B0B16",
+		"app_id":"102742515",
+		"package_name":"ru.cardsmobile.hmstest",
+		"api_key":"CgB6e3x9dAGo2i4QGFDOUNxXSDGHmgEaWMKNf6oOTz5wMxTlLxXsKMTz3h758IzW4NmjW/k3IVLzkIaNZuhlTm8M"
+	},
+	"service":{
+		"analytics":{
+			"collector_url":"datacollector-drru.dt.hicloud.com,datacollector-drru.dt.dbankcloud.cn",
+			"resource_id":"p1",
+			"channel_id":""
+		},
+		"cloudstorage":{
+			"storage_url":"https://agc-storage-drru.platform.dbankcloud.cn"
+		},
+		"ml":{
+			"mlservice_url":"ml-api-drru.ai.dbankcloud.com,ml-api-drru.ai.dbankcloud.cn"
+		}
+	},
+	"region":"RU",
+	"configuration_version":"1.0"
+}

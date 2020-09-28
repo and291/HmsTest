@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1080630152746",
+    "firebase_url": "https://hmstest-55d5f.firebaseio.com",
+    "project_id": "hmstest-55d5f",
+    "storage_bucket": "hmstest-55d5f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1080630152746:android:990e4b81ad43007c88bd53",
+        "android_client_info": {
+          "package_name": "ru.cardsmobile.hmstest"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1080630152746-nu2mtbjglouj7g1pnqac1ksr0d6s7194.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDGeMsHH_hK7cjL68s-YoEvl5chgrSti5Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1080630152746-nu2mtbjglouj7g1pnqac1ksr0d6s7194.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
