@@ -15,6 +15,7 @@ class SelectMobileServiceType(
         .getAvailableServices()
         .map { excludeEnvironmentsByCase(case, it) }
         .flatMapMaybe { selectEnvironment(it) }
+        .map { it.mobileServiceType }
 
     private fun excludeEnvironmentsByCase(
         case: Case,
@@ -26,14 +27,11 @@ class SelectMobileServiceType(
 
     private fun selectEnvironment(
         envs: Iterable<MobileServiceEnvironment>
-    ): Maybe<MobileServiceType> = Maybe
-        .fromCallable {
-            if (envs.any { it is HuaweiMobileServices && (it.emuiApiLevel == null || it.emuiApiLevel >= 21) }) {
-                envs.find { it is HuaweiMobileServices }
-            } else {
-                envs.firstOrNull { it is GoogleMobileServices }
-                    ?: envs.firstOrNull { it is HuaweiMobileServices }
-            }?.mobileServiceType
+    ): Maybe<MobileServiceEnvironment> = Maybe
+        .fromCallable<MobileServiceEnvironment> {
+            envs.firstOrNull { it is HuaweiMobileServices && (it.emuiApiLevel == null || it.emuiApiLevel >= 21) }
+                ?: envs.firstOrNull { it is GoogleMobileServices }
+                ?: envs.firstOrNull { it is HuaweiMobileServices }
         }
 
     enum class Case {
