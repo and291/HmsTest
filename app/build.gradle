@@ -43,6 +43,7 @@ android {
 
     kotlinOptions {
         jvmTarget = '1.8'
+        freeCompilerArgs = freeCompilerArgs + "-Xallow-result-return-type"
     }
 }
 
@@ -56,10 +57,12 @@ dependencies {
     implementation 'com.google.firebase:firebase-messaging:20.2.4'
     implementation 'com.huawei.hms:push:5.0.1.300'
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
-    implementation 'com.huawei.hms:maps:5.0.1.300'
+    implementation 'com.huawei.hms:maps:5.1.0.300'
     implementation 'com.google.android.gms:play-services-safetynet:17.0.0'
     implementation 'com.huawei.hms:safetydetect:5.0.1.300'
     implementation 'io.reactivex.rxjava3:rxjava:3.0.6'
+    implementation 'com.huawei.hms:location:5.1.0.300'
+    implementation 'com.google.android.gms:play-services-location:17.1.0'
 }
 
 apply plugin: 'com.google.gms.google-services'

@@ -21,7 +21,7 @@ class SelectMobileServiceType(
         case: Case,
         envs: Set<MobileServiceEnvironment>
     ): Iterable<MobileServiceEnvironment> = when (case) {
-        Case.Push, Case.Map -> envs
+        Case.Push, Case.Map, Case.Location -> envs
         Case.Security -> envs.filter { !it.isUpdateRequired }
     }
 
@@ -35,6 +35,6 @@ class SelectMobileServiceType(
         }
 
     enum class Case {
-        Push, Map, Security
+        Push, Map, Security, Location
     }
 }

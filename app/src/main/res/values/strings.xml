@@ -3,5 +3,6 @@
     <string name="title_push_token">Push Token</string>
     <string name="title_map">Map</string>
     <string name="title_security">Security</string>
+    <string name="title_location">Location</string>
     <string name="no_mobile_services_found">No Mobile Services Found</string>
 </resources>
