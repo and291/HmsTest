@@ -7,7 +7,9 @@ import com.google.firebase.iid.FirebaseInstanceId
 import com.huawei.agconnect.config.AGConnectServicesConfig
 import com.huawei.hms.aaid.HmsInstanceId
 import com.huawei.hms.api.HuaweiApiAvailability
+import com.huawei.hms.location.LocationServices
 import com.huawei.hms.support.api.safetydetect.SafetyDetect
+import ru.cardsmobile.hmstest.data.repository.LocationRepositoryImpl
 import ru.cardsmobile.hmstest.data.repository.MobileServicesRepositoryImpl
 import ru.cardsmobile.hmstest.data.repository.PushRepositoryImpl
 import ru.cardsmobile.hmstest.data.repository.SecurityRepositoryImpl
@@ -15,14 +17,15 @@ import ru.cardsmobile.hmstest.data.source.*
 import ru.cardsmobile.hmstest.data.source.availability.EmuiDataSource
 import ru.cardsmobile.hmstest.data.source.availability.GoogleServicesAvailabilityDataSource
 import ru.cardsmobile.hmstest.data.source.availability.HuaweiServicesAvailabilityDataSource
+import ru.cardsmobile.hmstest.domain.repository.LocationRepository
 import ru.cardsmobile.hmstest.domain.repository.MobileServicesRepository
 import ru.cardsmobile.hmstest.domain.repository.PushRepository
 import ru.cardsmobile.hmstest.domain.repository.SecurityRepository
-import ru.cardsmobile.hmstest.domain.usecase.GetPushTokenWithTimeout
-import ru.cardsmobile.hmstest.domain.usecase.GetSecurityCheckResult
-import ru.cardsmobile.hmstest.domain.usecase.OnPushTokenUpdated
-import ru.cardsmobile.hmstest.domain.usecase.SelectMobileServiceType
+import ru.cardsmobile.hmstest.domain.usecase.*
 import ru.cardsmobile.hmstest.presentation.map.GeoMapFactory
+
+private typealias HmsLocationServices = LocationServices
+private typealias GmsLocationServices = com.google.android.gms.location.LocationServices
 
 object Di {
 
@@ -43,6 +46,18 @@ object Di {
     val geoMapFactory: GeoMapFactory by lazy {
         GeoMapFactory()
     }
+
+    val getLastLocation: GetLastLocation
+        get() = GetLastLocation(locationRepository ,selectMobileServiceType)
+
+    val getLocationUpdates: GetLocationUpdates
+        get() = GetLocationUpdates(locationRepository, selectMobileServiceType)
+
+    val removeLocationUpdates: RemoveLocationUpdates
+        get() = RemoveLocationUpdates(locationRepository, selectMobileServiceType)
+
+    val checkLocationSettings: CheckLocationSettings
+        get() = CheckLocationSettings(locationRepository, selectMobileServiceType)
 
     private val pushRepository: PushRepository by lazy {
         PushRepositoryImpl(
@@ -82,6 +97,10 @@ object Di {
         )
     }
 
+    private val locationRepository: LocationRepository by lazy {
+        LocationRepositoryImpl(hmsLocationDataSource, gmsLocationDataSource)
+    }
+
     private val emuiDataSource: EmuiDataSource by lazy {
         EmuiDataSource()
     }
@@ -93,8 +112,8 @@ object Di {
 
     private val hmsDataSource: HmsDataSource by lazy {
         HmsDataSource(
-            hmsInstanceId = HmsInstanceId.getInstance(application),
-            agConnectServicesConfig = AGConnectServicesConfig.fromContext(application)
+            hmsInstanceId = lazy { HmsInstanceId.getInstance(application) },
+            agConnectServicesConfig = lazy { AGConnectServicesConfig.fromContext(application) }
         )
     }
 
@@ -113,6 +132,20 @@ object Di {
             safetyDetectClient = safetyDetectClient,
             agConnectServicesConfig = AGConnectServicesConfig.fromContext(application),
             securityBackendDataSource = securityBackendDataSource
+        )
+    }
+
+    private val hmsLocationDataSource by lazy {
+        HmsLocationDataSource(
+            lazy { HmsLocationServices.getFusedLocationProviderClient(application) },
+            lazy { HmsLocationServices.getSettingsClient(application) }
+        )
+    }
+
+    private val gmsLocationDataSource by lazy {
+        GmsLocationDataSource(
+            lazy { GmsLocationServices.getFusedLocationProviderClient(application) },
+            lazy { GmsLocationServices.getSettingsClient(application) }
         )
     }
 }
