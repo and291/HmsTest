@@ -18,6 +18,7 @@ class AppHmsMessagingService : HmsMessageService() {
 
     override fun onNewToken(token: String?) {
         super.onNewToken(token)
+        Log.d(LOG_TAG, "onNewToken: token=$token")
         if (!token.isNullOrEmpty()) {
             onPushTokenUpdated(token, MobileServiceType.Huawei)
                 .subscribe(
