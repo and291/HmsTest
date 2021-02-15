@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import ru.cardsmobile.hmstest.presentation.location.LocationFragment
 import ru.cardsmobile.hmstest.presentation.map.MapFragment
 import ru.cardsmobile.hmstest.presentation.pushtoken.PushTokenFragment
 import ru.cardsmobile.hmstest.presentation.security.SecurityFragment
@@ -19,6 +20,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.navigation_push_token -> PushTokenFragment.newInstance()
                 R.id.navigation_map -> MapFragment.newInstance()
                 R.id.navigation_security -> SecurityFragment.newInstance()
+                R.id.navigation_location -> LocationFragment.newInstance()
                 else -> throw IllegalStateException()
             }
             replaceFragment(fragment)

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.example.simple_examples"
+    tools:ignore="MissingClass,WrongManifestParent">
+
+    <!-- Android 5 достаточно просто объявить, пользователь принимает при установке приложения-->
+    <!-- Android 6+ запросить во время использования -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <!-- Android 10+ запросить если ваше приложение получает геолокацию в фоне-->
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+
+
+    <!-- Android 10+ получение геолокации без прямого взаимодействия пользователя -->
+    <service
+        android:name=".MyForegroundService"
+        android:foregroundServiceType="location" />
+
+</manifest>

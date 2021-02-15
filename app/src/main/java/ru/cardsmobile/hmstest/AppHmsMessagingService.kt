@@ -9,21 +9,22 @@ import ru.cardsmobile.hmstest.domain.usecase.OnPushTokenUpdated
 
 class AppHmsMessagingService : HmsMessageService() {
 
-    val onPushTokenUpdated: OnPushTokenUpdated = Di.onPushTokenUpdated
+    private val onPushTokenUpdated: OnPushTokenUpdated = Di.onPushTokenUpdated
 
     override fun onMessageReceived(remoteMessage: RemoteMessage?) {
         super.onMessageReceived(remoteMessage)
-        Log.d(LOG_TAG, "onMessageReceived remoteMessage=$remoteMessage")
+        Log.d(LOG_TAG, "onMessageReceived remoteMessage.data=${remoteMessage?.dataOfMap}")
     }
 
     override fun onNewToken(token: String?) {
         super.onNewToken(token)
         Log.d(LOG_TAG, "onNewToken: token=$token")
-        if (token?.isNotEmpty() == true) {
+        if (!token.isNullOrEmpty()) {
             onPushTokenUpdated(token, MobileServiceType.Huawei)
-                .subscribe({},{
-                    Log.e(LOG_TAG, "Error deliver updated token", it)
-                })
+                .subscribe(
+                    { /* Do nothing */ },
+                    { Log.e(LOG_TAG, "Error deliver updated token", it) }
+                )
         }
     }
 
